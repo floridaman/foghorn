@@ -80,8 +80,10 @@ func main() {
 
 	// Start a goroutine for status updates
 	go func() {
-		fmt.Printf("\rTransmitting block %d of %d", currentBlock, totalBlocks)
-		time.Sleep(1 * time.Second) // Simulate block transmission time
+		for {
+			fmt.Printf("\rTransmitting block %d of %d", currentBlock, totalBlocks)
+			time.Sleep(1 * time.Second) // Simulate block transmission time
+		}
 	}()
 
 	// Infinite loop to send file blocks
