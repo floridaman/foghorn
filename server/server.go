@@ -23,7 +23,7 @@ func main() {
 	filePath := flag.String("file", "path/to/your/file", "Path to the file to be sent")
 	multicastAddress := flag.String("address", "224.3.29.71:10000", "Multicast address and port")
 	blockSize := flag.Int("size", 4096, "Block size in bytes")
-	delay := flag.Int("delay", 4096, "Delay in ms")
+	delay := flag.Int("delay", 100, "Delay in ms")
 
 	flag.Parse()
 
@@ -110,15 +110,15 @@ func main() {
 			}
 
 			// Calculate block checksum
-			hash.Reset()
-			hash.Write(buffer[:bytesRead])
-			blockChecksum := hash.Sum32()
+			// hash.Reset()
+			// hash.Write(buffer[:bytesRead])
+			// blockChecksum := hash.Sum32()
 
 			// Prepare and send block
 			block := Block{
-				Index:    blockIndex,
-				Checksum: blockChecksum,
-				Data:     buffer[:bytesRead],
+				Index: blockIndex,
+				// Checksum: blockChecksum,
+				Data: buffer[:bytesRead],
 			}
 			sendBlock(conn, block)
 			blockIndex++

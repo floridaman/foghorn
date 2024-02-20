@@ -4,16 +4,15 @@ import (
 	"encoding/binary"
 	"flag"
 	"fmt"
-	"hash/crc32"
 	"net"
 	"os"
 	"sort"
 )
 
 type Block struct {
-	Index    uint32
-	Data     []byte
-	Checksum uint32
+	Index uint32
+	Data  []byte
+	// Checksum uint32
 }
 
 func main() {
@@ -45,20 +44,21 @@ func main() {
 		}
 
 		blockIndex := binary.BigEndian.Uint32(buffer[:4])
-		receivedChecksum := binary.BigEndian.Uint32(buffer[4:8])
+		// receivedChecksum := binary.BigEndian.Uint32(buffer[4:8])
 		data := buffer[8:n]
 
-		calculatedChecksum := crc32.ChecksumIEEE(data)
-		if receivedChecksum != calculatedChecksum {
-			fmt.Printf("Checksum mismatch for block %d.\n", blockIndex)
-			continue
-		}
+		// calculatedChecksum := crc32.ChecksumIEEE(data)
+		// if receivedChecksum != calculatedChecksum {
+		// 	fmt.Printf("Checksum mismatch for block %d.\n", blockIndex)
+		// 	continue
+		// }
 
 		if blockIndex == 0 {
 			totalBlocks = binary.BigEndian.Uint32(data[:4])
 			fmt.Printf("Primary block received. Total Blocks: %d\n", totalBlocks)
 		} else {
-			blocks[blockIndex] = Block{Index: blockIndex, Data: data, Checksum: receivedChecksum}
+			// blocks[blockIndex] = Block{Index: blockIndex, Data: data, Checksum: receivedChecksum}
+			blocks[blockIndex] = Block{Index: blockIndex, Data: data}
 		}
 
 		if uint32(len(blocks)) == totalBlocks-1 {
