@@ -97,6 +97,7 @@ func main() {
 				Index: blockIndex + 1,
 				Data:  fileData[blockIndex:endIndex],
 			}
+			fmt.Printf("\rSending block from %d to %d", blockIndex, endIndex)
 			sendBlock(conn, block)
 			blockIndex++
 			currentBlock = uint32(blockIndex / *blockSize)
