@@ -67,7 +67,7 @@ func main() {
 	fmt.Printf("Multicast Address: %s\n", *multicastAddress)
 	fmt.Printf("Block Size: %d bytes\n", *blockSize)
 
-	currentBlock := 0
+	currentBlock := uint32(0)
 
 	// Start a goroutine for status updates
 	go func() {
@@ -84,7 +84,7 @@ func main() {
 
 		// blockIndex := uint32(1) // Start from 1, 0 is for primary block
 
-		for blockIndex := 1; blockIndex < len(fileData); blockIndex += *blockSize {
+		for blockIndex := 0; blockIndex < len(fileData); blockIndex += *blockSize {
 			endIndex := blockIndex + *blockSize
 			if endIndex > len(fileData) {
 				endIndex = len(fileData)
@@ -92,12 +92,12 @@ func main() {
 
 			// Prepare and send block
 			block := Block{
-				Index: blockIndex,
+				Index: blockIndex + 1,
 				Data:  fileData[blockIndex:endIndex],
 			}
 			sendBlock(conn, block)
 			blockIndex++
-			currentBlock = blockIndex
+			currentBlock = uint32(blockIndex / *blockSize)
 		}
 
 		// Delay between each file transmission
