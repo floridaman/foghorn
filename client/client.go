@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"sort"
+	"time"
 )
 
 type Block struct {
@@ -36,6 +37,14 @@ func main() {
 
 	buffer := make([]byte, 4096+8)
 	fmt.Println("Listening for multicast messages...")
+
+	// Start a goroutine for status updates
+	go func() {
+		for {
+			fmt.Printf("\rReceived blocks %d of %d", len(blocks), totalBlocks)
+			time.Sleep(1 * time.Second) // Simulate block transmission time
+		}
+	}()
 
 	for {
 		n, _, err := conn.ReadFromUDP(buffer)
