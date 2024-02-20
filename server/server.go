@@ -23,7 +23,7 @@ func main() {
 	// Command line arguments
 	filePath := flag.String("file", "path/to/your/file", "Path to the file to be sent")
 	multicastAddress := flag.String("address", "224.3.29.71:10000", "Multicast address and port")
-	blockSize := flag.Int("size", 4096, "Block size in bytes")
+	blockSize := flag.Int("size", 508, "Block size in bytes")
 	delay := flag.Int("delay", 100, "Delay in ms")
 
 	flag.Parse()

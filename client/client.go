@@ -35,7 +35,7 @@ func main() {
 	blocks := make(map[uint32]Block)
 	var totalBlocks uint32
 
-	buffer := make([]byte, 32768+8)
+	buffer := make([]byte, 508+8)
 	fmt.Println("Listening for multicast messages...")
 
 	// Start a goroutine for status updates
