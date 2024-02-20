@@ -35,7 +35,7 @@ func main() {
 	blocks := make(map[uint32]Block)
 	var totalBlocks uint32
 
-	buffer := make([]byte, 508+8)
+	buffer := make([]byte, 508+4)
 	fmt.Println("Listening for multicast messages...")
 
 	// Start a goroutine for status updates
@@ -54,7 +54,7 @@ func main() {
 
 		blockIndex := binary.BigEndian.Uint32(buffer[:4])
 		// receivedChecksum := binary.BigEndian.Uint32(buffer[4:8])
-		data := buffer[8:n]
+		data := buffer[4:n]
 
 		// calculatedChecksum := crc32.ChecksumIEEE(data)
 		// if receivedChecksum != calculatedChecksum {
