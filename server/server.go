@@ -47,10 +47,12 @@ func main() {
 
 	// Prepare primary block
 	primaryBlock := Block{
-		Index:       0,
-		TotalBlocks: totalBlocks,
-		Hash:        hash,
+		Index: 0,
+		Hash:  hash,
+		Data:  make([]byte, 12),
 	}
+	binary.BigEndian.PutUint32(primaryBlock.Data[0:4], uint32(totalBlocks))
+	binary.BigEndian.PutUint64(primaryBlock.Data[4:12], uint64(hash))
 
 	// Setup UDP connection
 	addr, err := net.ResolveUDPAddr("udp4", *multicastAddress)
