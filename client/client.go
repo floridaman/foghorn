@@ -21,12 +21,12 @@ func main() {
 	savePath := flag.String("save", "received_file", "Path to save the received file")
 	flag.Parse()
 
-	addr, err := net.ResolveUDPAddr("udp", *multicastAddress)
+	addr, err := net.ResolveUDPAddr("udp4", *multicastAddress)
 	if err != nil {
 		panic(err)
 	}
 
-	conn, err := net.ListenMulticastUDP("udp", nil, addr)
+	conn, err := net.ListenMulticastUDP("udp4", nil, addr)
 	if err != nil {
 		panic(err)
 	}
