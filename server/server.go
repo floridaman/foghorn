@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"hash/crc32"
 	"io"
+	"math"
 	"net"
 	"os"
 	"time"
@@ -41,7 +42,7 @@ func main() {
 
 	// Calculate total blocks (+2 for possible partial block and primary block)
 	fileSize := fileInfo.Size()
-	totalBlocks := int(fileSize)/(*blockSize) + 2
+	totalBlocks := math.Ceil(float64(fileSize) / float64(*blockSize))
 
 	// Calculate file checksum
 	hash := crc32.NewIEEE()
