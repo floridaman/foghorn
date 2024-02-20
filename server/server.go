@@ -23,6 +23,7 @@ func main() {
 	filePath := flag.String("file", "path/to/your/file", "Path to the file to be sent")
 	multicastAddress := flag.String("address", "224.3.29.71:10000", "Multicast address and port")
 	blockSize := flag.Int("size", 4096, "Block size in bytes")
+	delay := flag.Int("delay", 4096, "Delay in ms")
 
 	flag.Parse()
 
@@ -125,7 +126,7 @@ func main() {
 		}
 
 		// Delay between each file transmission
-		time.Sleep(1 * time.Second)
+		time.Sleep(time.Duration(*delay) * time.Millisecond)
 	}
 }
 
